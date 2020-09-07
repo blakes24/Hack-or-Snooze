@@ -46,7 +46,7 @@ class StoryList {
 	async addStory(user, newStory) {
 		// this function should return the newly created story so it can be used in
 		// the script.js file where it will be appended to the DOM
-		const story = await axios.post('https://hack-or-snooze-v3.herokuapp.com/stories', {
+		const story = await axios.post(`${BASE_URL}/stories`, {
 			token: user.loginToken,
 			story: newStory
 		});
@@ -158,30 +158,24 @@ class User {
 
 	/** Add story to favorites */
 	async addFavorite(storyId) {
-		const fav = await axios.post(
-			`https://hack-or-snooze-v3.herokuapp.com/users/${this.username}/favorites/${storyId}`,
-			{
-				token: this.loginToken
-			}
-		);
+		const fav = await axios.post(`${BASE_URL}/users/${this.username}/favorites/${storyId}`, {
+			token: this.loginToken
+		});
 
 		this.favorites = fav.data.user.favorites;
 	}
 
 	/** Delete story from favorites */
 	async deleteFavorite(storyId) {
-		const fav = await axios.delete(
-			`https://hack-or-snooze-v3.herokuapp.com/users/${this.username}/favorites/${storyId}`,
-			{
-				params: { token: this.loginToken }
-			}
-		);
+		const fav = await axios.delete(`${BASE_URL}/users/${this.username}/favorites/${storyId}`, {
+			params: { token: this.loginToken }
+		});
 
 		this.favorites = fav.data.user.favorites;
 	}
 	/** Delete story from API */
 	async deleteStory(storyId) {
-		const fav = await axios.delete(`https://hack-or-snooze-v3.herokuapp.com/stories/${storyId}`, {
+		const fav = await axios.delete(`${BASE_URL}/stories/${storyId}`, {
 			params: { token: this.loginToken }
 		});
 	}

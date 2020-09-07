@@ -118,23 +118,32 @@ $(async function() {
 	});
 
 	/**
-   * Event handler to show story submission form
+   * Event handler for Navigation to story submission form
    */
 	$navPost.on('click', function() {
 		hideElements();
 		$submitForm.show();
 	});
 
+	/**
+   * Event handler for Navigation to Favorites
+   */
 	$('body').on('click', '#nav-favs', function() {
 		hideElements();
 		$favStories.show();
 	});
 
+	/**
+   * Event handler for Navigation to My Stories
+   */
 	$('body').on('click', '#nav-my-stories', function() {
 		hideElements();
 		$ownStories.show();
 	});
 
+	/**
+   * Event handler for Navigation to User Profile
+   */
 	$('body').on('click', '#nav-user-profile', function() {
 		hideElements();
 		$userProfile.show();
@@ -256,14 +265,11 @@ $(async function() {
 			const result = generateStoryHTML(fav);
 			$favStories.append(result);
 		}
-		// $('#favorited-articles .fa-star').off();
-		// $('#favorited-articles .fa-star').addClass('fas');
-		// $('#favorited-articles .fa-star').removeClass('far');
 	}
+
 	/**
    * A rendering function to generate my stories list and append it to DOM.
    */
-
 	function generateMyStories() {
 		// get currentUser favorite stories
 		let myStories = currentUser.ownStories;
@@ -276,6 +282,7 @@ $(async function() {
 			$ownStories.append(result);
 		}
 
+		// add trash icon and remove event listeners
 		$('#my-articles .icons').prepend('<i class="fas fa-trash"></i>');
 		$('#my-articles .fas').off('click', '**');
 		$('#my-articles .far').off('click', '**');
@@ -284,7 +291,6 @@ $(async function() {
 	/**
    * A function to render HTML for an individual Story instance
    */
-
 	function generateStoryHTML(story) {
 		let hostName = getHostName(story.url);
 		let symbol;
