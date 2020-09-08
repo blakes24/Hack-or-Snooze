@@ -64,13 +64,22 @@
     </article>
   </section>
   <section class="edit-article-container container">
-    <form action="#" id="edit-article-form" class="hidden" method="post">
+    <form action="#" id="edit-article-form" class="hidden" method="patch">
       <h4>Article Information</h4>
       <div class="edit-input">
         <label for="edit-title">Title</label>
         <input id="edit-title" type="text">
-        <button type="submit">change</button>
       </div>
+      <div class="edit-input">
+        <label for="edit-author">Author</label>
+        <input id="edit-author" type="text">
+      </div>
+      <div class="edit-input">
+        <label for="edit-url">URL</label>
+        <input id="edit-url" type="text">
+      </div>
+      <input id="edit-id" type="hidden">
+      <button type="submit">change</button>
     </form>
   </section>
   <section class="account-forms-container container">

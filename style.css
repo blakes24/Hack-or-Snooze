@@ -146,19 +146,23 @@ form > hr {
 	cursor: pointer;
 }
 
-.star,
-.trash-can,
-.pencil {
+.fa-star,
+.fa-trash,
+.fa-pencil-alt {
 	font-size: 0.75rem;
 	margin: 0 2px;
 	cursor: pointer;
 }
 
-.trash-can:hover {
+.fa-star:hover {
+	color: #ff6600;
+}
+
+.fa-trash:hover {
 	color: crimson;
 }
 
-.pencil:hover {
+.fa-pencil-alt:hover {
 	color: darkblue;
 }
 
@@ -210,11 +214,6 @@ form > hr {
 
 #user-profile > * {
 	margin: 10px 0;
-}
-
-.fa-trash:hover,
-.fa-star:hover {
-	color: #ff6600;
 }
 
 /** responsive queries for tightening things up for mobile. */

@@ -11,6 +11,7 @@ $(async function() {
 	const $navLogOut = $('#nav-logout');
 	const $navPost = $('#nav-post');
 	const $userProfile = $('#user-profile');
+	const $editForm = $('#edit-article-form');
 
 	// global storyList variable
 	let storyList = null;
@@ -75,13 +76,32 @@ $(async function() {
 
 		// call the add story method, which posts the story to the API
 		const newStory = { author: author, title: title, url: url };
-		const post = await storyList.addStory(currentUser, newStory);
+		await storyList.addStory(currentUser, newStory);
 		await generateStories();
 
 		$('#author').val('');
 		$('#title').val('');
 		$('#url').val('');
 
+		await checkIfLoggedIn();
+	});
+	/**
+   * Event listener for editing story.
+   */
+
+	$editForm.on('submit', async function(evt) {
+		evt.preventDefault;
+		// grab the required fields
+		// debugger;
+		let author = $('#edit-author').val();
+		let title = $('#edit-title').val();
+		let url = $('#edit-url').val();
+		let storyId = $('#edit-id').val();
+
+		const storyObj = { author, title, url };
+
+		// call the edit story method, which updates the story info
+		await currentUser.editStory(storyId, storyObj);
 		await checkIfLoggedIn();
 	});
 
@@ -174,6 +194,7 @@ $(async function() {
 		await currentUser.deleteFavorite(storyId);
 		generateFavStories();
 	});
+
 	/**
    * Event handler for deleting a story
    */
@@ -182,6 +203,21 @@ $(async function() {
 
 		await currentUser.deleteStory(storyId);
 		await checkIfLoggedIn();
+	});
+
+	/**
+   * Event handler for editing a story
+   */
+	$('body').on('click', '.fa-pencil-alt', async function() {
+		const storyId = $(this).parent().parent().attr('id');
+		const story = await storyList.getStory(storyId);
+
+		$('#edit-title').val(story.title);
+		$('#edit-author').val(story.author);
+		$('#edit-url').val(story.url);
+		$('#edit-id').val(storyId);
+
+		$editForm.show();
 	});
 
 	/**
@@ -284,6 +320,7 @@ $(async function() {
 
 		// add trash icon and remove event listeners
 		$('#my-articles .icons').prepend('<i class="fas fa-trash"></i>');
+		$('#my-articles .icons').prepend('<i class="fas fa-pencil-alt"></i>');
 		$('#my-articles .fas').off('click', '**');
 		$('#my-articles .far').off('click', '**');
 	}
@@ -295,7 +332,7 @@ $(async function() {
 		let hostName = getHostName(story.url);
 		let symbol;
 
-		//check if story has been favorited
+		//check if story has been favorited and add correct icon
 		if (currentUser) {
 			symbol = 'far fa-star off';
 			for (let fav of currentUser.favorites) {
@@ -332,7 +369,8 @@ $(async function() {
 			$loginForm,
 			$createAccountForm,
 			$userProfile,
-			$favStories
+			$favStories,
+			$editForm
 		];
 		elementsArr.forEach(($elem) => $elem.hide());
 	}
