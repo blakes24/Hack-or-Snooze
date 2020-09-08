@@ -102,6 +102,8 @@ $(async function() {
 		// call the edit story method, which updates the story info
 		await currentUser.editStory(storyId, storyObj);
 		await checkIfLoggedIn();
+		hideElements();
+		$ownStories.show();
 	});
 
 	/**
@@ -216,6 +218,7 @@ $(async function() {
 		$('#edit-url').val(story.url);
 		$('#edit-id').val(storyId);
 
+		hideElements();
 		$editForm.show();
 	});
 
