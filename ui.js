@@ -74,12 +74,12 @@ $(async function() {
 		let author = $('#author').val();
 		let title = $('#title').val();
 		let url = $('#url').val();
-		console.log(storyList);
+
 		// call the add story method, which posts the story to the API
 		const newStory = { author: author, title: title, url: url };
 		await storyList.addStory(currentUser, newStory);
 		await generateStories();
-		console.log(storyList);
+
 		$('#author').val('');
 		$('#title').val('');
 		$('#url').val('');
