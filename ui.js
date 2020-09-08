@@ -92,7 +92,6 @@ $(async function() {
 	$editForm.on('submit', async function(evt) {
 		evt.preventDefault;
 		// grab the required fields
-		// debugger;
 		let author = $('#edit-author').val();
 		let title = $('#edit-title').val();
 		let url = $('#edit-url').val();
