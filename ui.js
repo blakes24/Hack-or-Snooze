@@ -69,16 +69,17 @@ $(async function() {
    */
 
 	$submitForm.on('submit', async function(evt) {
+		evt.preventDefault();
 		// grab the required fields
 		let author = $('#author').val();
 		let title = $('#title').val();
 		let url = $('#url').val();
-
+		console.log(storyList);
 		// call the add story method, which posts the story to the API
 		const newStory = { author: author, title: title, url: url };
 		await storyList.addStory(currentUser, newStory);
 		await generateStories();
-
+		console.log(storyList);
 		$('#author').val('');
 		$('#title').val('');
 		$('#url').val('');
@@ -90,7 +91,7 @@ $(async function() {
    */
 
 	$editForm.on('submit', async function(evt) {
-		evt.preventDefault;
+		evt.preventDefault();
 		// grab the required fields
 		let author = $('#edit-author').val();
 		let title = $('#edit-title').val();
